@@ -22,8 +22,6 @@ import math
 import threading 
 import logging 
 
-
-
 #Variaveis do IMU
 sampling_rate = 100.0
 madgwick_filter = Madgwick()
@@ -33,6 +31,7 @@ a=1
 q_previous=[1.0, 0, 0, 0]
 quaternio_buffer = []
 
+# Parametros controlo-PI
 kp = 5
 ki = 0.1
 integral = 0.0
@@ -46,7 +45,6 @@ erroRoll = 0.0
 media_atual = [0,0,0,0] 
 
 #//////////////////////////
-
 #Variaveis do GPS
 latitude =0.0
 longitude =0.0
@@ -58,8 +56,7 @@ elevation = 0.0
 #41.450745, -8.294013
 
 
-# variaveis sinusoide de referencia 
-
+# variaveis sinusoide de referencia
 amplitude = 32
 tamanho = 500  # Número de pontos na sinusoide
 periodo = 500  # Período da sinusoide em unidades de tempo
@@ -68,22 +65,18 @@ t =0.0
 sinusoide = 0.0
 i = 0
 
-
 #///////////////////
-
 def _map(x):
     return int((x - (-40)) * (90 - 0) / (40 - (-40) + 0))
 
 def _mapRoll(x):
     return int((x - (40)) * (120 - (-100)) / (-40 - 40) + (-100))
-
 #def _map(x, in_min, in_max, out_min, out_max):
  #   return int((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min)
 
 def _motorPitch(x):
     test.move_servo_position(6, x, 90)
-    
-    
+
 def _motorRoll(x):
     test1.move_servo_position(11, x)   
 
@@ -104,12 +97,11 @@ class SlidingAverageQuaternion:  # Media deslizante para os quaternioes
         if (n >5):
             self.quaternions.pop(0)
             n -= 1
-            
-        
+
         # Atualiza a média deslizante
         for i in range(4):
             self.avg_q[i] = (self.avg_q[i] * (n - 1) + qT[i]) / n
-            
+
         #self.quaternions.pop(0)     
     
     def get_average(self):
@@ -136,23 +128,19 @@ class MediaDeslizante:  # Media deslizante para os valores de roll e pitch
 
 #///////////////////////////////
 def _getPitch(q):
-    
-    
     rot_matrix = np.array([[1 - 2*q[2]**2 - 2*q[3]**2, 2*q[1]*q[2] - 2*q[0]*q[3], 2*q[1]*q[3] + 2*q[0]*q[2]],
                        [2*q[1]*q[2] + 2*q[0]*q[3], 1 - 2*q[1]**2 - 2*q[3]**2, 2*q[2]*q[3] - 2*q[0]*q[1]],
                        [2*q[1]*q[3] - 2*q[0]*q[2], 2*q[2]*q[3] + 2*q[0]*q[1], 1 - 2*q[1]**2 - 2*q[2]**2]])
-    
+
     pitch = np.arctan2(-rot_matrix[2, 0], np.sqrt(rot_matrix[2, 1]**2 + rot_matrix[2, 2]**2))
     
     return np.degrees(pitch)
 
 def _getRoll(q):
-    
     rot_matrix = np.array([[1 - 2*q[2]**2 - 2*q[3]**2, 2*q[1]*q[2] - 2*q[0]*q[3], 2*q[1]*q[3] + 2*q[0]*q[2]],
                        [2*q[1]*q[2] + 2*q[0]*q[3], 1 - 2*q[1]**2 - 2*q[3]**2, 2*q[2]*q[3] - 2*q[0]*q[1]],
                        [2*q[1]*q[3] - 2*q[0]*q[2], 2*q[2]*q[3] + 2*q[0]*q[1], 1 - 2*q[1]**2 - 2*q[2]**2]])
-    
-    
+
     roll = np.arctan2(rot_matrix[2, 1], rot_matrix[2, 2])
     
     return np.degrees(roll) 
@@ -195,8 +183,7 @@ def _controloRoll():
 #///////////////////////////////
 
 #///////////////////////////////
-def _getData(): # Vai buscar os valores do Imu 
-    
+def _getData(): # Vai buscar os valores do Imu
     global samples
     global sampling_rate 
     global quaternions
@@ -294,11 +281,9 @@ def plot_orientacao(): #Faz a representação gráfica do sistema
                                [2*q1*q3 - 2*q2*q0, 2*q2*q3 + 2*q1*q0, 1 - 2*q1**2 - 2*q2**2]])
 
         rotated_vertices = np.dot(vertices, rot_matrix.T)
-
         
         for face in faces:
             face.set_verts([])
-        
 
         # Desenha as faces do cubo com cores diferentes
         colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple']
@@ -306,8 +291,7 @@ def plot_orientacao(): #Faz a representação gráfica do sistema
             face = ax.add_collection3d(Poly3DCollection([rotated_vertices[[i for i in range(4)]]], alpha=0.5))
             face.set_facecolor(color)
             faces.append(face)
-       
-        
+
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
         ax.set_zlabel('Z')
@@ -329,7 +313,6 @@ def plot_orientacao(): #Faz a representação gráfica do sistema
 
 #///////////////////////////////
 def run_example():
-
     global azimuth
     global distance
     global elavation 
@@ -361,7 +344,6 @@ def run_example():
         elevation = valores["elevation"]
         distance = valores["distance"]
 
-
         #print(azimuth, elevation, distance)
         
 #///////
@@ -379,12 +361,8 @@ AltAzimuthRange.default_observer(41.450745, -8.294013, 200) # meter aqui as coor
 trajetoria = AltAzimuthRange()
 
 # Sinusoide de referência
-
-
 t = np.linspace(0, periodo*2*np.pi, tamanho)  # Vetor de tempo
 sinusoide = amplitude * np.sin((2*np.pi*t) / periodo)
-
-
 
 # ATIVACAO DO MOTOR
 test = pi_servo_hat.PiServoHat()
@@ -393,8 +371,6 @@ test2 = pi_servo_hat.PiServoHat()
 
 test.restart()
 test1.restart()
-
-
 
 if imu.connected:
     print("IMU conectado!")
@@ -416,9 +392,6 @@ y= threading.Thread(target=run_example, args=(1,))
 x.start()
 y.start()
 
-
 while(a>0):
     #run_example()
     plot_orientacao()
-    
-    
