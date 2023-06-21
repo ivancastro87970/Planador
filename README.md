@@ -3,8 +3,7 @@ Planador Subaquátco Autónomo
 
 No âmbito da Unidade Curricular (UC) de Projeto Integrador em Enge-
 nharia Eletrónica Industrial e Computadores (PIEEIC) do curso de Mestrado
-em Engenharia Eletrónica Industrial e Computadores (MEEIC) da Univer-
-sidade do Minho, foi proposto o desenvolvimento de um projeto integrador
+em Engenharia Eletrónica Industrial e Computadores (MEEIC) da Universidade do Minho, foi proposto o desenvolvimento de um projeto integrador
 onde seria possível aplicar conhecimento técnico e científico adquirido nas uni-
 dades curriculares das  ́areas de especialização do curso.
 
