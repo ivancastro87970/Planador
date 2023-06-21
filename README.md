@@ -1,13 +1,17 @@
 # Planador
 Planador Subaquátco Autónomo
 
-No que diz respeito às funcionalidades do presente projeto, este encontra-
-se apto de se deslocar para um trajeto previamente definido. Sendo assim,  ́e
-necess ́ario retirar os valores em forma de quaterni ̃oes, para obter valores que
-permitam retirar os ˆangulos de pitch e roll para estender os motores.
-De modo a saber a posi ̧c ̃ao e o percurso que o planador tem de efetuar,
-est ́a implementado um m ́odulo GPS, no qual s ̃ao retirados a distˆancia entre
-pontos e o ˆangulo de azimute.
-Impostas estas especifica ̧c ̃oes, o planador encontra-se dotado de autono-
-mia, para realizar o percurso corretamente para um ponto desejado pelo
-utilizador.
+No âmbito da Unidade Curricular (UC) de Projeto Integrador em Enge-
+nharia Eletrónica Industrial e Computadores (PIEEIC) do curso de Mestrado
+em Engenharia Eletrónica Industrial e Computadores (MEEIC) da Univer-
+sidade do Minho, foi proposto o desenvolvimento de um projeto integrador
+onde seria possível aplicar conhecimento técnico e científico adquirido nas uni-
+dades curriculares das  ́areas de especialização do curso.
+
+O presente projeto integrador tem por objetivo utilizar a plataforma mini-DOUG (um pequeno
+planador subaquático desenvolvido no MIT) e sobre ele projetar e desenvolver sistemas de instrumentação e controlo para dot ́a-lo de autonomia em
+missões subaquáicas.
+
+O trabalho centrar-se-á num caso de estudo, que simulará uma missao e,
+na adaptação do mini-DOUG para o cumprimento da mesma. Este estudo
+assegura o controlo do veículo.
