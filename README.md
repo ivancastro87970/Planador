@@ -1,5 +1,6 @@
-# Planador
-Planador Subaquátco Autónomo
+# Planador Subaquátco Autónomo
+
+- Projeto Universidade -
 
 No âmbito da Unidade Curricular (UC) de Projeto Integrador em Engenharia Eletrónica Industrial e Computadores (PIEEIC) do curso de Mestrado
 em Engenharia Eletrónica Industrial e Computadores (MEEIC) da Universidade do Minho, foi proposto o desenvolvimento de um projeto integrador
